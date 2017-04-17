@@ -68,6 +68,8 @@ function init() {
 
   renderScene();
 
+  window.addEventListener('resize', onResize, false);
+
   var step = 0;
 
   function renderScene() {
@@ -97,5 +99,11 @@ function init() {
     document.getElementById('stats-output').appendChild(stats.domElement);
 
     return stats;
+  }
+
+  function onResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
   }
 }
