@@ -1,6 +1,13 @@
 window.onload = init;
 
 function init() {
+  var controls = new function() {
+    this.rotationSpeed = 0.02;
+    this.bouncingSpeed = 0.03;
+  };
+  var gui = new dat.GUI();
+  gui.add(controls, 'rotationSpeed', 0, 0.5);
+  gui.add(controls, 'bouncingSpeed', 0, 0.5);
   var stats = initStats();
   var scene = new THREE.Scene();
   var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -67,12 +74,12 @@ function init() {
     stats.update();
 
     //animating cube rotation
-    cube.rotation.x += 0.02;
-    cube.rotation.y += 0.02;
-    cube.rotation.z += 0.02;
+    cube.rotation.x += controls.rotationSpeed;
+    cube.rotation.y += controls.rotationSpeed;
+    cube.rotation.z += controls.rotationSpeed;
 
     //bouncing the sphere
-    step += 0.04;
+    step += controls.bouncingSpeed;
     sphere.position.x = 20 + (10 * Math.cos(step));
     sphere.position.y = 2 + (10 * Math.abs(Math.sin(step)));
 
