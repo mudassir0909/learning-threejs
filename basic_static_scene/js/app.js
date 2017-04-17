@@ -1,6 +1,7 @@
 window.onload = init;
 
 function init() {
+  var stats = initStats();
   var scene = new THREE.Scene();
   var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 
@@ -63,6 +64,8 @@ function init() {
   var step = 0;
 
   function renderScene() {
+    stats.update();
+
     //animating cube rotation
     cube.rotation.x += 0.02;
     cube.rotation.y += 0.02;
@@ -75,5 +78,17 @@ function init() {
 
     requestAnimationFrame(renderScene);
     renderer.render(scene, camera);
+  }
+
+  function initStats() {
+    var stats = new Stats();
+
+    stats.setMode(0);
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.left = '0px';
+    stats.domElement.style.top = '0px';
+    document.getElementById('stats-output').appendChild(stats.domElement);
+
+    return stats;
   }
 }
